@@ -12,6 +12,6 @@ const publicPath = path.resolve(__dirname, '../public')
 
 app.use('/assets',express.static(publicPath))
 
-app.listen(8080,()=>{
-	console.log(`Listening to 8080`)
+app.listen(4000,()=>{
+	console.log(`Listening to 4000`)
 })

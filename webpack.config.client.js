@@ -9,6 +9,14 @@ const PATHS = {
 module.exports = {
 	target:'web',
 	devtool : 'eval',
+	devServer:{
+		contentBase: PATHS.BUILD,
+		hot: true,
+		publicPath: "/assets",
+		quiet: false,
+  		noInfo: false,
+		headers: { 'Access-Control-Allow-Origin': 'http://localhost:4000','Access-Control-Allow-Credentials':'true' }
+	},
 	entry:{
 		movies : PATHS.MOVIES,
 		events : PATHS.EVENTS
@@ -34,7 +42,8 @@ module.exports = {
 	},
 	plugins:[
 		new webpack.HotModuleReplacementPlugin({quiet:true}),
-		new webpack.optimize.OccurenceOrderPlugin(true)
+		new webpack.optimize.OccurenceOrderPlugin(true),
+		new AssetsPlugin({path: PATHS.BUILD})
 	]
 
 
