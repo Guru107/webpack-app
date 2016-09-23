@@ -6,6 +6,7 @@ const PATHS = {
 	EVENTS : path.join(__dirname,'./events'),
 	BUILD : path.join(__dirname,'./public')
 }
+
 module.exports = {
 	target:'web',
 	devtool : 'eval',
@@ -26,6 +27,9 @@ module.exports = {
 		path : PATHS.BUILD,
 		publicPath: "/assets/"
 	},
+	externals:{
+		'./webpack-assets.json':'commonjs ./webpack-assets.json'
+	},
 	module:{
 		loaders:[
 			{
@@ -35,7 +39,7 @@ module.exports = {
 			},
 			{
 				test:/\.js$/,
-				loader:'babel-loader',
+				loader:'babel-loader?presets[]=react,presets[]=es2015',
 				exclude:['/node_modules/']
 			}
 		]
