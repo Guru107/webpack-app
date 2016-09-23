@@ -27,6 +27,9 @@
     "webpack-dev-server": "^1.16.1"
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
     "react": "^15.3.2",
     "react-router": "^2.8.1"
   }
