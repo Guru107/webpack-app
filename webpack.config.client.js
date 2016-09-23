@@ -1,7 +1,8 @@
 var webpack = require('webpack')
 var path = require('path')
+var AssetsPlugin = require('assets-webpack-plugin')
 const PATHS = {
-	MOVIES : path.join(__dirname,'./movies')
+	MOVIES : path.join(__dirname,'./movies'),
 	EVENTS : path.join(__dirname,'./events'),
 	BUILD : path.join(__dirname,'./public')
 }
@@ -26,7 +27,7 @@ module.exports = {
 			},
 			{
 				test:/\.js$/,
-				loader:'react-hot!babel-loader',
+				loader:'babel-loader',
 				exclude:['/node_modules/']
 			}
 		]
