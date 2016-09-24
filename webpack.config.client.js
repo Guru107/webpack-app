@@ -1,13 +1,16 @@
 var webpack = require('webpack')
 var path = require('path')
 var AssetsPlugin = require('assets-webpack-plugin')
+var ExtractTextPlugin = require("extract-text-webpack-plugin")
 const PATHS = {
 	MOVIES : path.join(__dirname,'./movies'),
 	EVENTS : path.join(__dirname,'./events'),
-	BUILD : path.join(__dirname,'./public')
+	BUILD : path.join(__dirname,'./public'),
+	SRC : path.join(__dirname)
 }
 
 module.exports = {
+	context:PATHS.SRC,
 	target:'web',
 	devtool : 'eval',
 	devServer:{
@@ -34,19 +37,25 @@ module.exports = {
 		loaders:[
 			{
 				test:/\.less$/,
-				loader:'style!css!less',
+				loaders:['isomorphic-style-loader','css-loader','less-loader'],
 				exclude:['/node_modules/']
 			},
 			{
 				test:/\.js$/,
-				loader:'babel-loader?presets[]=react,presets[]=es2015',
+				loader:'babel-loader',
+				query:{
+					presets:['es2015','react']
+				},
 				exclude:['/node_modules/']
 			}
 		]
 	},
 	plugins:[
 		new webpack.HotModuleReplacementPlugin({quiet:true}),
-		new webpack.optimize.OccurenceOrderPlugin(true),
+		new ExtractTextPlugin("[name].css"),
+		new webpack.optimize.CommonsChunkPlugin({
+			name:['manifest']
+		}),
 		new AssetsPlugin({path: PATHS.BUILD})
 	]
 

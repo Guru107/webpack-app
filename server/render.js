@@ -12,11 +12,14 @@ export default (req,res) => {
 	let routes = null,
 		HtmlComponent = null
 	console.log(req.originalUrl)
+	const css = []
+	const context = { insertCss: (styles) => css.push(styles._getCss()) }
 	if(req.originalUrl.indexOf('/events') > -1){
 		routes = getEventsRoutes()
 		console.log('events -  match')
 		console.log(routes)
-		match({routes, location:req.originalUrl},(error,redirectUrl,renderProps)=>{
+
+		match({routes, location:req.originalUrl,context},(error,redirectUrl,renderProps)=>{
 			if(renderProps){
 				const component = renderToString(
 					<div>
